@@ -148,7 +148,7 @@ class Leave_Service extends CI_Controller {
                             .$_SESSION['MyJob_name']."<br>"
                             .$_SESSION['Mydep_name']."<br><hr>"
                             ."&emsp;&emsp;มีความประสงค์ ขอ". $leaveTypeHeader[0]->Leave_type_desc ."<br>ตั้งแต่วันที่ ".$leaveDetail[0]->start_date." ถึงวันที่ ".$leaveDetail[0]->end_date." รวมทั้งสิ้น ".$leaveDetail[0]->sum_leave ." วัน <br>"
-                            ."หากท่านเห็นสมควร อนุมัติ โปรดยืนยันการอนุมัติ โดย <a href='http://192.168.90.241:8090/hrapp/index.php/leave/grant_service?sid=".$sid."&uid=".$header_id."&grant_level=1'>click</a> link นี้ เพื่อโปรดพิจารณาดำเนินการต่อไป <br><hr>"
+                            ."หากท่านเห็นสมควร อนุมัติ โปรดยืนยันการอนุมัติ โดย <a href='http://192.168.90.241:8090/hrapp/index.php/leave/grant_service?sid=".$sid."&uid=".$header_id."&grant_level=1&code=".$result[0]->code."'>click</a> link นี้ เพื่อโปรดพิจารณาดำเนินการต่อไป <br><hr>"
                             //."Approve click here.<br>"
                             //."<a hrcf='http://192.168.90.241:8090/hrapp/index.php/myservice/activate?sid=".$sid."&uid=".$header_id."'>click</a><br>"
                             
@@ -231,15 +231,14 @@ class Leave_Service extends CI_Controller {
 			foreach ($data['grantList'] as $grant)
 			{
                                 //(int)$_SESSION["username"]
-                                if(1==1)
-                                    $this->leave_header_model->grantLeave1($grant['leave_id'] , $grant['approveValue'] , $grant['reason'] , $grant['sumleave'], (int)$_SESSION["username"]);
-                                else if(1==1)
-                                    $this->leave_header_model->grantLeave2($grant['leave_id'] , $grant['approveValue'] , $grant['reason'] , $grant['sumleave'], (int)$_SESSION["username"]);
-                                else
-                                    $this->leave_header_model->grantLeave3($grant['leave_id'] , $grant['approveValue'] , $grant['reason'] , $grant['sumleave'], (int)$_SESSION["username"]);
+                                if($grant['grant_level'] == '1')                                    
+                                    $this->leave_header_model->grantLeave1($grant['leave_id'] , $grant['approveValue'] , $grant['reason'] , $grant['sumleave'], $grant['approve_code']);
+                                else if($grant['grant_level'] == '2')
+                                    $this->leave_header_model->grantLeave2($grant['leave_id'] , $grant['approveValue'] , $grant['reason'] , $grant['sumleave'], $grant['approve_code']);
+                                else if($grant['grant_level'] == '3')
+                                    $this->leave_header_model->grantLeave3($grant['leave_id'] , $grant['approveValue'] , $grant['reason'] , $grant['sumleave'], $grant['approve_code']);
 			}
-		}		
-		
+		}                
 		echo json_encode(true);
 	}
         

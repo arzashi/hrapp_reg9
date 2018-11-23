@@ -1,4 +1,34 @@
+<link href="<?php echo base_url(); ?>asset/css/jquery.signaturepad.css" rel="stylesheet">
 <script src="<?php echo base_url(); ?>asset/js/pages/leave/grant_leave.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/sign/numeric-1.2.6.min.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/sign/bezier.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/sign/jquery.signaturepad.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/sign/json2.min.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/sign/html2canvas.js"></script>
+<style type="text/css">
+			
+			
+			#signArea{
+				width:304px;
+				margin: 50px auto;
+			}
+			.sign-container {
+				width: 60%;
+				margin: auto;
+			}
+			.sign-preview {
+				width: 150px;
+				height: 50px;
+				border: solid 1px #CFCFCF;
+				margin: 10px 5px;
+			}
+			.tag-ingo {
+				font-family: cursive;
+				font-size: 12px;
+				text-align: left;
+				font-style: oblique;
+			}
+		</style>
 <section class="content">
     <div class="row">
         <div class="box box-solid">
@@ -77,8 +107,12 @@
                                          "<input type='hidden' value='" . $pendingLeave->leave_id . "'>"                                    
                                 ?>
                             </td>
-                        </tr>
-					<?php /*
+                        </tr>                        
+                        
+					<?php 
+                                        echo "<input type='hidden' id='approve_code' value='" . $_REQUEST['code'] . "'>" .
+                                             "<input type='hidden' id='grant_level' value='" . $_REQUEST['grant_level'] . "'>";
+                                        /*
 						foreach ($pendingLeaves as $pendingLeave) {
 							echo "<tr><td>". $pendingLeave->username . 
 								"</td><td>". $pendingLeave->gender . $pendingLeave->name . "     " . $pendingLeave->surname .
@@ -103,7 +137,13 @@
             </div>
         </div><!-- /.col -->
     </div><!-- /.row -->
-	
+	 <div id="signArea" >
+                            <h2 class="tag-ingo">Put signature below,</h2>
+                            <div class="sig sigWrapper" style="height:auto;">
+                                    <div class="typed"></div>
+                                    <canvas class="sign-pad" id="sign-pad" width="300" height="100"></canvas>
+                            </div>
+                        </div>
 	
 	<br>
 	<div class="row">

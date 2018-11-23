@@ -175,19 +175,19 @@ class Leave_Header_model extends CI_Model {
 	
 	public function grantLeave1($leave_id,$approveValue,$reason,$sumleave,$username)
 	{
-		if ($sumleave < 5)
+		if ($sumleave >=4)
 		{
-			$update_data = array('approve_1' => $approveValue, 'reject_1' => $reason, 'approve_user_1' => $username, 'approve_date_1' => date("Y-m-d"),'approve_2' => $approveValue, 'reject_2' => $reason, 'approve_user_2' => $username, 'approve_date_2' => date("Y-m-d"),'approve_3' => $approveValue, 'reject_3' => $reason, 'approve_user_3' => $username, 'approve_date_3' => date("Y-m-d"), 'upd_by' => $username, 'upd_date' => date("Y-m-d H:i:s"));
+			$update_data = array('approve_1' => $approveValue, 'reject_1' => $reason, 'approve_user_1' => $username, 'approve_date_1' => date("Y-m-d H:i:s"),'approve_2' => $approveValue, 'reject_2' => $reason, 'approve_user_2' => $username, 'approve_date_2' => date("Y-m-d H:i:s"),'approve_3' => $approveValue, 'reject_3' => $reason, 'approve_user_3' => $username, 'approve_date_3' => date("Y-m-d H:i:s"), 'upd_by' => $username, 'upd_date' => date("Y-m-d H:i:s"));
 		}
 		else
 		{
-			$update_data = array('approve_1' => $approveValue, 'reject_1' => $reason, 'approve_user_1' => $username, 'upd_by' => $username, 'upd_date' => date("Y-m-d H:i:s"));
+			$update_data = array('approve_1' => $approveValue, 'reject_1' => $reason, 'approve_user_1' => $username, 'approve_date_1' => date("Y-m-d H:i:s"), 'upd_by' => $username, 'upd_date' => date("Y-m-d H:i:s"));
 		}
 
 		$this->db->where('leave_id', $leave_id);
-        $this->db->update('leave_header', $update_data);
+                $this->db->update('leave_header', $update_data);
         
-        $this->db->affected_rows();
+                $this->db->affected_rows();
 
 		return  $leave_id;
 	}

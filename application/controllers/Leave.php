@@ -105,7 +105,7 @@ class Leave extends CI_Controller {
 		
 		$this->load->view('header');
 		$this->load->view('leave/grant_level2', $data);
-        $this->load->view('footer');
+                $this->load->view('footer');
 	}
 	
 	
@@ -136,7 +136,7 @@ class Leave extends CI_Controller {
 		
 		$this->load->view('header');
 		$this->load->view('leave/grant_level3', $data);
-        $this->load->view('footer');
+                $this->load->view('footer');
 	}
         
         public function grant_service()//jay add
@@ -145,7 +145,7 @@ class Leave extends CI_Controller {
            
             //http://192.168.90.241:8090/hrapp/index.php/leave/grant_service?sid=9IummRLI2Ay_Itb-4AB8scKvE9yK1z9ghbR11Hvzh6w&id=1
 	    //$records = $this->leave_header_model->findLeaveForLevel8((int)$_SESSION["username"]);
-                $records = $this->leave_header_model->findLeaveForLevelForApprove( $leave['sid'], $leave['uid'],$leave['grant_level']);
+                $records = $this->leave_header_model->findLeaveForLevelForApprove($leave['sid'], $leave['uid'],$leave['grant_level']);
 		
 		foreach ($records as $record)
 		{
